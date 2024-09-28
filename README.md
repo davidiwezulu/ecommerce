@@ -1,4 +1,4 @@
-# 🎉 Davidiwezulu Laravel E-Commerce Package
+# 🎉 Laravel E-Commerce Package
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/davidiwezulu/ecommerce.svg?style=flat-square)](https://packagist.org/packages/davidiwezulu/ecommerce)
 ![Laravel 8.x](https://img.shields.io/badge/Laravel-8.x-red.svg?style=flat-square&logo=laravel)
