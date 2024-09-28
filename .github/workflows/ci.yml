@@ -1,0 +1,78 @@
+name: CI Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - develop  # Optional: Add any branches you want to track
+  pull_request:
+    branches:
+      - main
+      - develop
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:8.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test_db
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+        volumes:
+          - /home/runner/mysql:/var/lib/mysql
+
+    strategy:
+      matrix:
+        php-versions: ['8.1', '8.2'] # Add PHP versions you want to test against
+        laravel-versions: ['8.*', '9.*', '10.*'] # Specify the Laravel versions
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        extensions: mbstring, xml, mysql, zip
+        ini-values: post_max_size=256M, max_execution_time=300
+        coverage: none
+
+    - name: Setup Composer Cache
+      uses: actions/cache@v2
+      with:
+        path: ~/.composer/cache
+        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-composer-
+
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Create .env file
+      run: |
+        cp .env.example .env
+        php artisan key:generate
+        echo "DB_CONNECTION=mysql" >> .env
+        echo "DB_HOST=127.0.0.1" >> .env
+        echo "DB_PORT=3306" >> .env
+        echo "DB_DATABASE=test_db" >> .env
+        echo "DB_USERNAME=root" >> .env
+        echo "DB_PASSWORD=root" >> .env
+
+    - name: Run Migrations
+      run: php artisan migrate
+
+    - name: Run Tests
+      run: vendor/bin/phpunit --coverage-text --colors=always
+
+
