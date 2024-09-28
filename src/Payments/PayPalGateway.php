@@ -48,9 +48,9 @@ class PayPalGateway implements PaymentGatewayInterface
         $clientSecret = config('ecommerce.payment_gateways.paypal.secret');
         $mode = config('ecommerce.payment_gateways.paypal.mode', 'sandbox');
 
-        $environment = $mode === 'sandbox'
-            ? new SandboxEnvironment($clientId, $clientSecret)
-            : new ProductionEnvironment($clientId, $clientSecret);
+        $environment = $mode === 'live'
+            ? new ProductionEnvironment($clientId, $clientSecret)
+            : new SandboxEnvironment($clientId, $clientSecret);
 
         $this->client = $client ?: new PayPalHttpClient($environment);
     }
