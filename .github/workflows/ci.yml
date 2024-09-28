@@ -1,52 +1,62 @@
-name: CI
+name: CI  # The name of the workflow, indicating it's a Continuous Integration (CI) pipeline
 
 on:
   push:
     branches:
-      - main
+      - main  # Trigger this workflow on every push to the "main" branch
   pull_request:
     branches:
-      - main
+      - main  # Also trigger the workflow when a pull request targets the "main" branch
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # This job runs on the latest Ubuntu environment provided by GitHub Actions
 
     services:
-      mysql:
-        image: mysql:8
+      mysql:  # Define a MySQL service container for testing the application with a real database
+        image: mysql:8  # Use the official MySQL 8 image
         env:
-          MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: test_db
+          MYSQL_ROOT_PASSWORD: root  # Set the MySQL root password (ensure security in production)
+          MYSQL_DATABASE: test_db  # Automatically create the test database
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+        # Health check ensures that MySQL service is ready before the next steps proceed
         ports:
-          - 3306:3306
+          - 3306:3306  # Map port 3306 of the container to port 3306 on the host for database access
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v3  # This step checks out the repository code from GitHub
 
       - name: Set up PHP
-        uses: shivammathur/setup-php@v2
+        uses: shivammathur/setup-php@v2  # Use the popular setup-php action to configure PHP
         with:
-          php-version: 8.1
-          extensions: mbstring, intl, mysql, pdo, bcmath
+          php-version: 8.1  # Specify the PHP version (8.1) for this job
+          extensions: mbstring, intl, mysql, pdo, bcmath  # Install required PHP extensions
           ini-values: post_max_size=256M, upload_max_filesize=256M, max_execution_time=300
-          tools: composer
+          # Customize php.ini settings: useful for ensuring that tests requiring file uploads or longer executions work correctly
+          tools: composer  # Install Composer as a dependency management tool
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
+        # Install package dependencies specified in composer.json.
+        # The flags:
+        # --prefer-dist: Speeds up installation by preferring the package dist (zip) files.
+        # --no-progress: Suppresses progress output for cleaner logs.
+        # --no-suggest: Suppresses suggested packages in the output for better clarity.
 
       - name: Create .env file
         run: |
-          echo "APP_NAME=Laravel" >> .env
-          echo "APP_ENV=local" >> .env
-          echo "DB_CONNECTION=mysql" >> .env
-          echo "DB_HOST=127.0.0.1" >> .env
-          echo "DB_PORT=3306" >> .env
-          echo "DB_DATABASE=test_db" >> .env
-          echo "DB_USERNAME=root" >> .env
-          echo "DB_PASSWORD=root" >> .env
+          echo "APP_NAME=Laravel" >> .env  # Application-specific configurations
+          echo "APP_ENV=local" >> .env  # Define environment as 'local' for testing
+          echo "DB_CONNECTION=mysql" >> .env  # Use MySQL as the DB connection
+          echo "DB_HOST=127.0.0.1" >> .env  # Connect to the MySQL service using localhost
+          echo "DB_PORT=3306" >> .env  # MySQL listens on port 3306
+          echo "DB_DATABASE=test_db" >> .env  # The database name used in tests
+          echo "DB_USERNAME=root" >> .env  # MySQL root user credentials
+          echo "DB_PASSWORD=root" >> .env  # MySQL root password
+        # Creates a necessary .env configuration file dynamically, to provide the Laravel application with environment variables
+        # Note: Ensure sensitive data like passwords are handled securely in production
 
       - name: Run Tests
         run: vendor/bin/phpunit --configuration phpunit.xml
+        # Executes PHPUnit tests using the phpunit.xml configuration file
