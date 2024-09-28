@@ -41,9 +41,6 @@ jobs:
         run: |
           echo "APP_NAME=Laravel" >> .env
           echo "APP_ENV=local" >> .env
-          echo "APP_KEY=" >> .env
-          echo "APP_DEBUG=true" >> .env
-          echo "APP_URL=http://localhost" >> .env
           echo "DB_CONNECTION=mysql" >> .env
           echo "DB_HOST=127.0.0.1" >> .env
           echo "DB_PORT=3306" >> .env
@@ -51,11 +48,6 @@ jobs:
           echo "DB_USERNAME=root" >> .env
           echo "DB_PASSWORD=root" >> .env
 
-      - name: Generate Application Key
-        run: php artisan key:generate
-
-      - name: Run Migrations
-        run: php artisan migrate --force
-
+      # No need to run artisan commands for a package
       - name: Run Tests
-        run: php artisan test
+        run: vendor/bin/phpunit
