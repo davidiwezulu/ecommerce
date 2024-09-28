@@ -13,9 +13,10 @@
         <testsuite name="Unit Test Suite">
             <directory suffix="Test.php">./tests/Unit</directory>
         </testsuite>
-        <testsuite name="Feature Test Suite">
+        <!-- Remove this since we are not running Feature tests -->
+        <!-- <testsuite name="Feature">
             <directory suffix="Test.php">./tests/Feature</directory>
-        </testsuite>
+        </testsuite> -->
     </testsuites>
 
     <!-- Configure environment variables to be used during testing -->

@@ -48,6 +48,5 @@ jobs:
           echo "DB_USERNAME=root" >> .env
           echo "DB_PASSWORD=root" >> .env
 
-      # No need to run artisan commands for a package
       - name: Run Tests
-        run: vendor/bin/phpunit
+        run: vendor/bin/phpunit --configuration phpunit.xml
