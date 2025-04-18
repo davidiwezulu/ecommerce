@@ -77,10 +77,10 @@ php artisan migrate
 - **Cart Management**: Add, update, remove, and retrieve cart items with tax calculations.
 - **Order Processing**: Create, process, and manage orders with tax-inclusive totals.
 - **Admin Operations**: Create and manage products, update inventory, and set specific tax rates per product.
-- **Payment Gateway Integration**: Supports Stripe and PayPal, with options for customization.
+- **Payment Gateway Integration**: Supports Stripe and PayPal, with options for customisation.
 - **Flexible Tax System**: Configure default tax rates, specify per-product tax rates, and choose whether taxes are included in prices.
 - **Currency Configuration**: Define default currency symbol and code.
-- **Model Customization**: Extend and override default models through configuration.
+- **Model customisation**: Extend and override default models through configuration.
 - **Extensibility**: Implement custom payment gateways by adhering to the provided interface.
 - **Payment Status Handling**: Handle successful and failed payments with appropriate responses.
 - **Automatic Inventory Tracking**: Automatically updates product inventory levels upon successful order placements.
@@ -97,7 +97,7 @@ composer require davidiwezulu/ecommerce
 ```
 ### Step 2: Publish Configuration and Migrations
 
-**Important:** Before running migrations, ensure you have configured the package according to your application's needs. This includes setting up currency, tax settings, payment gateways, and customizing models if necessary.
+**Important:** Before running migrations, ensure you have configured the package according to your application's needs. This includes setting up currency, tax settings, payment gateways, and customising models if necessary.
 
 Publish the package's configuration file and migrations:
 
@@ -119,7 +119,7 @@ php artisan migrate
 
 ### Configuration
 
-The package provides a configuration file located at `config/ecommerce.php`, allowing you to customize various aspects.
+The package provides a configuration file located at `config/ecommerce.php`, allowing you to customise various aspects.
 
 #### Important Note
 
@@ -210,7 +210,7 @@ You can override the default models used by the package in config/ecommerce.php:
 
 ```
 #### Database Migrations
-The package provides migrations for creating necessary database tables. If you've customized table names or models, ensure that these are correctly set in the configuration before running migrations.
+The package provides migrations for creating necessary database tables. If you've customised table names or models, ensure that these are correctly set in the configuration before running migrations.
 
 Important: Always back up your database before running new migrations, especially in production environments.
 
@@ -418,7 +418,7 @@ foreach ($items as $item) {
 
 #### Extend Package Models (Optional)
 
-You can extend the package's default models if you want to retain the base functionality while adding your customizations.
+You can extend the package's default models if you want to retain the base functionality while adding your customisations.
 
 **Example:**
 
@@ -429,7 +429,7 @@ use Davidiwezulu\Ecommerce\Models\Product as BaseProduct;
 
 class Product extends BaseProduct
 {
-    // Add your customizations here
+    // Add your customisations here
 
     /**
      * Example of adding a new relationship.
@@ -505,7 +505,7 @@ This package is open-sourced software licensed under the MIT license.
 
 ### Conclusion
 
-The Laravel E-commerce package provides a comprehensive solution for implementing e-commerce functionality in your Laravel application. With features like flexible tax calculations, seamless payment gateway integration, and customizable models, it offers a solid foundation for building robust online stores.
+The Laravel E-commerce package provides a comprehensive solution for implementing e-commerce functionality in your Laravel application. With features like flexible tax calculations, seamless payment gateway integration, and customisable models, it offers a solid foundation for building robust online stores.
 
 **Important:** Remember to configure the package appropriately before running migrations to ensure a smooth integration with your application.
 
