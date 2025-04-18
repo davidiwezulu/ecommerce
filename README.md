@@ -29,6 +29,15 @@ This package is compatible with the following Laravel versions:
 - **Database**: MySQL, PostgreSQL, SQLite, or any Laravel-supported database.
 
 
+### Consumer upgrade steps (Laravel 11 projects)
+```allykeynamelanguage
+composer require davidiwezulu/ecommerce "^1.1"
+php artisan vendor:publish --provider="Davidiwezulu\Ecommerce\EcommerceServiceProvider" --tag=config
+php artisan vendor:publish --provider="Davidiwezulu\Ecommerce\EcommerceServiceProvider" --tag=migrations
+php artisan migrate
+```
+
+
 ## Table of Contents
 
 - [Features](#features)
@@ -204,14 +213,6 @@ The package provides migrations for creating necessary database tables. If you'v
 
 Important: Always back up your database before running new migrations, especially in production environments.
 
-
-### Consumer upgrade steps (Laravel 11 projects)
-```allykeynamelanguage
-composer require davidiwezulu/ecommerce "^1.1"
-php artisan vendor:publish --provider="Davidiwezulu\Ecommerce\EcommerceServiceProvider" --tag=config
-php artisan vendor:publish --provider="Davidiwezulu\Ecommerce\EcommerceServiceProvider" --tag=migrations
-php artisan migrate
-```
 
 ## Usage
 
