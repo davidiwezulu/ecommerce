@@ -340,7 +340,7 @@ Route::get('/paypal/return', [PaymentController::class, 'handlePayPalReturn'])->
 Route::get('/paypal/cancel', [PaymentController::class, 'handlePayPalCancel'])->name('paypal.cancel');
 ```
 Implement the controller methods:
-``` 
+```php 
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
