@@ -184,7 +184,7 @@ PAYPAL_MODE=sandbox  # Use 'live' for production
 
 ```
 In config/ecommerce.php:
-```
+```php
 'payment_gateways' => [
     'paypal' => [
         'class'     => \Davidiwezulu\Ecommerce\Payments\PayPalGateway::class,
@@ -198,7 +198,7 @@ In config/ecommerce.php:
 ### Custom Models
 You can override the default models used by the package in config/ecommerce.php:
 
-```
+```php
 'models' => [
     'product'     => App\Models\Product::class,
     'inventory'   => App\Models\Inventory::class,
@@ -229,12 +229,12 @@ Cart::addOrUpdate($productId, $quantity);
 ```
 
 #### Removing Cart Items
-```
+```php
 Cart::remove($productId);
 ```
 
 #### Retrieving Cart Items
-```
+```php
 $items = Cart::items();
 
 foreach ($items as $item) {
@@ -249,14 +249,14 @@ foreach ($items as $item) {
 ```
 
 #### Clearing the Cart
-```
+```php
 Cart::clear();
 ```
 ### Admin Operations
 Admins can manage products and inventory using the Admin facade.
 
 #### Adding a New Product with Tax Rate
-```
+```php
 use Davidiwezulu\Ecommerce\Facades\Admin;
 
 $productData = [
@@ -270,7 +270,7 @@ $productData = [
 $product = Admin::addProduct($productData);
 ```
 #### Updating an Existing Product
-```
+```php
 $productData = [
     'name'        => 'Updated Product Name',
     'price'       => 120.00,
@@ -281,7 +281,7 @@ $productData = [
 $product = Admin::updateProduct($productId, $productData);
 ```
 #### Updating Inventory
-``` 
+```php 
 $quantity = 50; // New stock quantity
 Admin::updateInventory($productId, $quantity);
 ```
@@ -290,7 +290,7 @@ Use the Order facade to create orders and process payments.
 
 #### Stripe Payment Example
 
-``` 
+```php 
 use Davidiwezulu\Ecommerce\Facades\Order;
 use Illuminate\Support\Facades\Auth;
 use Davidiwezulu\Ecommerce\Facades\Cart;
@@ -312,7 +312,7 @@ try {
 ```
 #### PayPal Payment Example
 #### Step 1: Initiate PayPal Payment
-``` 
+```php 
 use Davidiwezulu\Ecommerce\Facades\Order;
 use Illuminate\Support\Facades\Auth;
 
@@ -334,7 +334,7 @@ try {
 #### Step 2: Handle PayPal Return (After User Approval)
 Create routes in your web.php:
 
-``` 
+```php 
 Route::get('/paypal/return', [PaymentController::class, 'handlePayPalReturn'])->name('paypal.return');
 Route::get('/paypal/cancel', [PaymentController::class, 'handlePayPalCancel'])->name('paypal.cancel');
 ```
@@ -377,7 +377,7 @@ class PaymentController extends Controller
 The package supports flexible tax calculations, including per-product tax rates and configurable default tax rates.
 
 #### Adding a Product with a Specific Tax Rate
-``` 
+```php 
 use Davidiwezulu\Ecommerce\Facades\Admin;
 
 $productData = [
@@ -392,7 +392,7 @@ $product = Admin::addProduct($productData);
 ```
 #### Calculating Tax in Cart Items
 When you add or update items in the cart, the tax amount is automatically calculated based on the product's tax rate or the default tax rate.
-``` 
+```php 
 use Davidiwezulu\Ecommerce\Facades\Cart;
 
 // Add product to cart
@@ -450,7 +450,7 @@ class Product extends BaseProduct
 ### Update Configuration:
 In config/ecommerce.php:
 
-``` 
+```php 
 'models' => [
     'product' => App\Models\Product::class,
     // Other models...
@@ -463,7 +463,7 @@ By extending BaseProduct, you retain all the original functionality provided by 
 You can add new payment gateways by implementing the PaymentGatewayInterface.
 
 Create a Custom Gateway Class
-``` 
+```php 
 namespace App\Payments;
 
 use Davidiwezulu\Ecommerce\Payments\PaymentGatewayInterface;
@@ -490,7 +490,7 @@ class CustomGateway implements PaymentGatewayInterface
 ### Register the Custom Gateway
 In config/ecommerce.php:
 
-``` 
+```php 
 'payment_gateways' => [
     // Existing gateways...
     'custom_gateway' => [
