@@ -17,16 +17,16 @@ An extensible Laravel package providing robust e-commerce functionalities, inclu
 
 This package is compatible with the following Laravel versions:
 
-| Laravel Version | Supported |
-|-----------------|-----------|
-| 8.x             | ✅ Yes    |
-| 9.x             | ✅ Yes    |
-| 10.x            | ✅ Yes    |
+| Laravel   | Package |
+|-----------|---------|
+| 8.x–10.x  | ≥1.0.0  |
+| 11.x      | ≥1.0.0   |
+
 
 ## Requirements
 
 - **PHP**: >= 8.0
-- **Laravel**: 8.x, 9.x, or 10.x
+- **Laravel**: 8.x, 9.x, 10.x, 11.x
 - **Database**: MySQL, PostgreSQL, SQLite, or any Laravel-supported database.
 
 
@@ -204,6 +204,14 @@ You can override the default models used by the package in config/ecommerce.php:
 The package provides migrations for creating necessary database tables. If you've customized table names or models, ensure that these are correctly set in the configuration before running migrations.
 
 Important: Always back up your database before running new migrations, especially in production environments.
+
+### Consumer upgrade steps (Laravel 11 projects)
+```allykeynamelanguage
+composer require davidiwezulu/ecommerce "^1.1"
+php artisan vendor:publish --provider="Davidiwezulu\Ecommerce\EcommerceServiceProvider" --tag=config
+php artisan vendor:publish --provider="Davidiwezulu\Ecommerce\EcommerceServiceProvider" --tag=migrations
+php artisan migrate
+```
 
 ## Usage
 
