@@ -29,7 +29,7 @@ This package is compatible with the following Laravel versions:
 - **Database**: MySQL, PostgreSQL, SQLite, or any Laravel-supported database.
 
 
-### Consumer upgrade steps (Laravel 11 projects)
+### Upgrade steps for Laravel 11 projects)
 ```allykeynamelanguage
 composer require davidiwezulu/ecommerce "^1.1"
 php artisan vendor:publish --provider="Davidiwezulu\Ecommerce\EcommerceServiceProvider" --tag=config
