@@ -135,7 +135,8 @@ CURRENCY_CODE=GBP
 ```
 Or directly in config/ecommerce.php:
 
-```'currency' => [
+```php
+'currency' => [
     'symbol' => env('CURRENCY_SYMBOL', '£'),
     'code'   => env('CURRENCY_CODE', 'GBP'),
 ],
@@ -144,13 +145,13 @@ Or directly in config/ecommerce.php:
 
 Configure tax settings in the .env file:
 
-```
+```env
 TAX_RATE=0.2  # 20% default tax rate
 TAX_INCLUDED_IN_PRICES=false  # Are taxes included in product prices?
 ```
 Or directly in config/ecommerce.php:
 
-```
+```php
 'tax' => [
     'default_rate' => env('TAX_RATE', 0.0),
     'included_in_prices' => env('TAX_INCLUDED_IN_PRICES', false),
@@ -161,11 +162,11 @@ Or directly in config/ecommerce.php:
 #### Stripe Configuration
 
 In your .env file:
-``` 
+```env 
 STRIPE_SECRET_KEY=your-stripe-secret-key
 ```
 In config/ecommerce.php:
-```allykeynamelanguage
+```php
 'payment_gateways' => [
     'stripe' => [
         'class'      => \Davidiwezulu\Ecommerce\Payments\StripeGateway::class,
@@ -177,7 +178,7 @@ In config/ecommerce.php:
 ```
 #### PayPal Configuration
 In your .env file:
-```
+```env
 PAYPAL_CLIENT_ID=your-paypal-client-id
 PAYPAL_SECRET=your-paypal-secret
 PAYPAL_MODE=sandbox  # Use 'live' for production
